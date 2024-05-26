@@ -159,6 +159,19 @@ def run_cli():
                 else:
                     simulator.drop_all_tables()
                     print("Todas las tablas han sido eliminadas.")
+            
+            elif cmd == "describe":
+                if len(args) != 2:
+                    print("Uso: describe <table_name>")
+                else:
+                    table_name = args[1]
+                    if table_name in simulator.tables:
+                        table = simulator.tables[table_name]
+                        enabled = table.is_enabled()
+                        print("Descripción:")
+                        print(f"{'ENABLED' if enabled else 'DISABLED'}")
+                    else:
+                        print(f"Tabla '{table_name}' no encontrada.")
 
             else:
                 print("Comando no reconocido. Comandos disponibles: create, list, put, get, delete, scan, deleteall, count, truncate, disable, is_enabled, alter, dropall, describe, exit")
