@@ -27,7 +27,9 @@ def run_cli():
             elif cmd == "list":
                 tables = simulator.list_tables()
                 if tables:
-                    print("Tablas:", ", ".join(tables))
+                    print("Tablas:")
+                    for table in tables:
+                        print(table)
                 else:
                     print("No hay tablas.")
 
@@ -159,7 +161,7 @@ def run_cli():
                     print("Todas las tablas han sido eliminadas.")
 
             else:
-                print("Comando no reconocido. Comandos disponibles: create, list, put, get, delete, scan, deleteall, count, truncate, disable, is_enabled, alter, dropall, exit")
+                print("Comando no reconocido. Comandos disponibles: create, list, put, get, delete, scan, deleteall, count, truncate, disable, is_enabled, alter, dropall, describe, exit")
 
         except Exception as e:
             print(f"Error: {e}")
