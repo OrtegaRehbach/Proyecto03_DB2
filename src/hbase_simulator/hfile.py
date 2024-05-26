@@ -1,5 +1,3 @@
-# hfile.py
-
 import json
 import os
 import time
@@ -27,6 +25,19 @@ class HFile:
     def delete(self, row_key):
         if row_key in self.data:
             del self.data[row_key]
+
+    def scan(self):
+        return self.data.items()
+
+    def delete_all(self):
+        self.data = {}
+
+    def count(self):
+        return len(self.data)
+
+    def truncate(self):
+        self.delete_all()
+        self.save()
 
     def _current_timestamp(self):
         return int(time.time() * 1000)
