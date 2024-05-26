@@ -1,5 +1,5 @@
-import os
 from hbase_simulator.hfile import HFile
+import os
 
 class Table:
     def __init__(self, name):
@@ -61,6 +61,16 @@ class Table:
 class HBaseSimulator:
     def __init__(self):
         self.tables = {}
+        self.load_tables()
+
+    def load_tables(self):
+        if not os.path.exists('data'):
+            os.makedirs('data')
+        for file in os.listdir('data'):
+            if file.endswith('.hfile'):
+                table_name = file.replace('.hfile', '')
+                self.tables[table_name] = Table(table_name)
+                print(f"Tabla '{table_name}' cargada desde HFile.")
 
     def create_table(self, name):
         if name in self.tables:
