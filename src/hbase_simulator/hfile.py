@@ -1,11 +1,12 @@
 import json
 import os
 import time
+from collections import OrderedDict
 
 class HFile:
     def __init__(self, table_name):
         self.table_name = table_name
-        self.data = {}
+        self.data = OrderedDict()
         self.file_path = os.path.join('data', f'{self.table_name}.hfile')
 
         # Crear la carpeta 'data' si no existe
@@ -18,6 +19,8 @@ class HFile:
         if column_family not in self.data[row_key]:
             self.data[row_key][column_family] = {}
         self.data[row_key][column_family][column] = {'value': value, 'timestamp': timestamp}
+        # Re-sort row keys after update
+        self.data = OrderedDict(sorted(self.data.items()))
 
     def get(self, row_key):
         return self.data.get(row_key, {})
@@ -44,7 +47,9 @@ class HFile:
 
     def save(self):
         with open(self.file_path, 'w') as f:
-            json.dump(self.data, f)
+            # Sort row keys before saving to hfile
+            sorted_data = OrderedDict(sorted(self.data.items()))
+            json.dump(sorted_data, f)
 
     def load(self):
         if os.path.exists(self.file_path):
