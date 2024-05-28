@@ -169,6 +169,17 @@ def run_cli():
                     simulator.alter_table(table_name, new_table_name)
                     print(f"Tabla '{table_name}' renombrada a '{new_table_name}'.")
 
+            elif cmd == "drop":
+                if len(args) != 2:
+                    print("Uso: drop <table_name>")
+                else:
+                    table_name = args[1]
+                    if table_name in simulator.tables:
+                        simulator.drop_table(table_name)
+                        print(f"Tabla '{table_name}' eliminada.")
+                    else:
+                        print(f"Tabla '{table_name}' no encontrada.")
+            
             elif cmd == "dropall":
                 if len(args) != 1:
                     print("Uso: dropall")
@@ -188,7 +199,7 @@ def run_cli():
                         print(f"Tabla '{table_name}' no encontrada.")
 
             else:
-                print("Comando no reconocido. Comandos disponibles: create, list, put, get, delete, scan, deleteall, count, truncate, disable, is_enabled, alter, dropall, describe, exit")
+                print("Comando no reconocido. Comandos disponibles: create, list, put, get, delete, scan, deleteall, count, truncate, disable, is_enabled, alter, drop, dropall, describe, exit")
 
         except Exception as e:
             print(f"Error: {e}")
