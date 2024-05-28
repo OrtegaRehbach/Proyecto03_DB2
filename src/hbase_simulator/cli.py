@@ -17,12 +17,13 @@ def run_cli():
 
             cmd = args[0]
             if cmd == "create":
-                if len(args) != 2:
-                    print("Uso: create <table_name>")
+                if len(args) < 3:
+                    print("Uso: create <table_name> <column_family1> <column_family2> ...")
                 else:
                     table_name = args[1]
-                    simulator.create_table(table_name)
-                    print(f"Tabla '{table_name}' creada.")
+                    column_families = args[2:]
+                    simulator.create_table(table_name, column_families)
+                    print(f"Tabla '{table_name}' creada con column families: {', '.join(column_families)}.")
             
             elif cmd == "list":
                 tables = simulator.list_tables()
@@ -54,16 +55,14 @@ def run_cli():
                         table = simulator.tables[table_name]
                         data = table.get(row_key)
                         if data:
-                            print(f"Datos en '{row_key}' de '{table_name}': {data}")
+                            print(data)
                         else:
                             print(f"No se encontraron datos en '{row_key}' de '{table_name}'.")
                     else:
                         print(f"Tabla '{table_name}' no encontrada.")
 
             elif cmd == "delete":
-                if len(args) != 3:
-                    print("Uso: delete <table_name> <row_key>")
-                else:
+                if len(args) == 3:
                     table_name, row_key = args[1:3]
                     if table_name in simulator.tables:
                         table = simulator.tables[table_name]
@@ -71,6 +70,17 @@ def run_cli():
                         print(f"Fila '{row_key}' eliminada de '{table_name}'.")
                     else:
                         print(f"Tabla '{table_name}' no encontrada.")
+                elif len(args) == 4:
+                    table_name, row_key, cf_col = args[1:4]
+                    column_family, column = cf_col.split(":")
+                    if table_name in simulator.tables:
+                        table = simulator.tables[table_name]
+                        table.delete(row_key, column_family, column)
+                        print(f"Columna '{column_family}:{column}' eliminada de la fila '{row_key}' en '{table_name}'.")
+                    else:
+                        print(f"Tabla '{table_name}' no encontrada.")
+                else:
+                    print("Uso: delete <table_name> <row_key> [<column_family:column>]")
 
             elif cmd == "scan":
                 if len(args) != 2:
@@ -80,8 +90,10 @@ def run_cli():
                     if table_name in simulator.tables:
                         table = simulator.tables[table_name]
                         data = table.scan()
-                        for row_key, row_data in data:
-                            print(f"{row_key}: {row_data}")
+                        if data:
+                            print(data)
+                        else:
+                            print(f"No se encontraron datos en la tabla '{table_name}'.")
                     else:
                         print(f"Tabla '{table_name}' no encontrada.")
 
@@ -167,9 +179,7 @@ def run_cli():
                     table_name = args[1]
                     if table_name in simulator.tables:
                         table = simulator.tables[table_name]
-                        enabled = table.is_enabled()
-                        print("Descripción:")
-                        print(f"{'ENABLED' if enabled else 'DISABLED'}")
+                        print(table.describe())
                     else:
                         print(f"Tabla '{table_name}' no encontrada.")
 

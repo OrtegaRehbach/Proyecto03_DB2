@@ -4,8 +4,9 @@ import time
 from collections import OrderedDict
 
 class HFile:
-    def __init__(self, table_name):
+    def __init__(self, table_name, column_families=None):
         self.table_name = table_name
+        self.column_families = column_families or []
         self.data = OrderedDict()
         self.file_path = os.path.join('data', f'{self.table_name}.hfile')
         self.versions = 3
@@ -36,6 +37,10 @@ class HFile:
         if row_key in self.data:
             del self.data[row_key]
 
+    def delete_column(self, row_key, column_family, column):
+        if row_key in self.data and column_family in self.data[row_key] and column in self.data[row_key][column_family]:
+            del self.data[row_key][column_family][column]
+
     def scan(self):
         return self.data.items()
 
@@ -55,10 +60,15 @@ class HFile:
     def save(self):
         with open(self.file_path, 'w') as f:
             # Sort row keys before saving to hfile
-            sorted_data = OrderedDict(sorted(self.data.items()))
-            json.dump(sorted_data, f)
+            data_to_save = {
+                'column_families': self.column_families,
+                'data': OrderedDict(sorted(self.data.items()))
+            }
+            json.dump(data_to_save, f)
 
     def load(self):
         if os.path.exists(self.file_path):
             with open(self.file_path, 'r') as f:
-                self.data = json.load(f)
+                loaded_data = json.load(f, object_pairs_hook=OrderedDict)
+                self.column_families = loaded_data.get('column_families', [])
+                self.data = loaded_data.get('data', OrderedDict())
