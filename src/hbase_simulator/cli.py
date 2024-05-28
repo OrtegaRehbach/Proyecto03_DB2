@@ -1,4 +1,5 @@
 from hbase_simulator.table import HBaseSimulator
+from hbase_simulator.utils import scan_to_dataframe
 
 def run_cli():
     simulator = HBaseSimulator()
@@ -53,9 +54,11 @@ def run_cli():
                     table_name, row_key = args[1:3]
                     if table_name in simulator.tables:
                         table = simulator.tables[table_name]
-                        data = table.get(row_key)
-                        if data:
-                            print(data)
+                        row_data = table.get(row_key)
+                        if row_data:
+                            reformatted_data = [(row_key, row_data)]
+                            df = scan_to_dataframe(reformatted_data, only_latest_version=True)
+                            print(df)
                         else:
                             print(f"No se encontraron datos en '{row_key}' de '{table_name}'.")
                     else:
@@ -91,7 +94,8 @@ def run_cli():
                         table = simulator.tables[table_name]
                         data = table.scan()
                         if data:
-                            print(data)
+                            df = scan_to_dataframe(data, only_latest_version=True)
+                            print(df)
                         else:
                             print(f"No se encontraron datos en la tabla '{table_name}'.")
                     else:
