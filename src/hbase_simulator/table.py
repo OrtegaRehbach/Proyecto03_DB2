@@ -90,6 +90,8 @@ class HBaseSimulator:
 
     def drop_table(self, name):
         if name in self.tables:
+            if self.tables[name].enabled:
+                raise Exception("Table must be disabled before deletion")
             del self.tables[name]
             os.remove(os.path.join('data', f'{name}.hfile'))
 
