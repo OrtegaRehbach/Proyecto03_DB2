@@ -13,6 +13,9 @@ class HFile:
 
         # Crear la carpeta 'data' si no existe
         os.makedirs('data', exist_ok=True)
+        # Crear hfile asociado si no existe
+        if not os.path.exists(self.file_path):
+            self.save()
 
     def put(self, row_key, column_family, column, value):
         timestamp = self._current_timestamp()
