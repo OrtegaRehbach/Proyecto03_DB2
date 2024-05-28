@@ -78,7 +78,7 @@ class HBaseSimulator:
                 temp_hfile = HFile(table_name)
                 temp_hfile.load()
                 self.tables[table_name] = Table(table_name, temp_hfile.column_families)
-                print(f"Tabla '{table_name}' cargada desde HFile.")
+                print(f"Table '{table_name}' loaded from HFile.")
 
     def create_table(self, name, column_families):
         if name in self.tables:
