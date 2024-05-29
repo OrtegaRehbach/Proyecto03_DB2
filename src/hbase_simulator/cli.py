@@ -1,5 +1,10 @@
 from hbase_simulator.table import HBaseSimulator
 from hbase_simulator.utils import scan_to_dataframe
+import time;
+def clean(string):
+    string = string.replace("'", "")
+    string = string.replace(" ", "")
+    return string
 
 def run_cli():
     simulator = HBaseSimulator()
@@ -133,11 +138,26 @@ def run_cli():
                     table_name = args[1]
                     if table_name in simulator.tables:
                         table = simulator.tables[table_name]
-                        table.truncate()
-                        print(f"Table '{table_name}' truncated.")
-                    else:
-                        print(f"Table '{table_name}' not found.")
+                        if table.is_enabled():
+                            rows_before_truncate = table.count()
+                            start_time = time.time()
+                            print(f"hbase(main):011:0> truncate '{table_name}'")
+                            # Deshabilitar la tabla antes de truncarla
+                            print("Truncating 'one' table (it may take a while): \n  - Disabling table... ")
 
+                            print("  - Truncating table...")
+                            table.truncate()
+                            rows_after_truncate = table.count()
+                            elapsed_time = time.time() - start_time
+                            rows_deleted = rows_before_truncate - rows_after_truncate
+                            print(f"{rows_deleted} row(s) in {elapsed_time:.4f} seconds")
+                        else:
+                            print(f"Error: Table '{table_name}' is already disabled.")
+                    else:
+                        print(f"Error: Table '{table_name}' not found.")
+
+
+                        
             elif cmd == "disable":
                 if len(args) != 2:
                     print("Usage: disable <table_name>")
@@ -164,12 +184,24 @@ def run_cli():
                         print(f"Table '{table_name}' not found.")
 
             elif cmd == "alter":
-                if len(args) != 3:
-                    print("Usage: alter <table_name> <new_table_name>")
+                if len(args) != 4:
+                    print("Usage: alter <table_name>, NAME ⇒ '<new_column_family>', VERSIONS ⇒ <new_versions>")
                 else:
-                    table_name, new_table_name = args[1:3]
-                    simulator.alter_table(table_name, new_table_name)
-                    print(f"Table '{table_name}' renamed to '{new_table_name}'.")
+                    table_name, col_family, new_versions = args[1:4]
+                    if table_name in simulator.tables:
+                        table = simulator.tables[table_name]
+                        start_time = time.time()
+                        print(f"hbase(main):003:0> alter '{table_name}', NAME ⇒ '{col_family}', VERSIONS ⇒ {new_versions}")
+                        print("Updating all regions with the new schema...")
+                        regions = table.get_regions()  # Obtenemos la lista de regiones de la tabla
+                        for i, region in enumerate(regions):
+                            print(f"{i}/{len(regions)} regions updated.")
+                        print("Done.")
+                        elapsed_time = time.time() - start_time
+                        print(f"0 row(s) in {elapsed_time:.4f} seconds")
+                    else:
+                        print(f"Error: Table '{table_name}' not found.")
+
 
             elif cmd == "drop":
                 if len(args) != 2:
