@@ -1,0 +1,455 @@
+{
+  "column_families": ["product_info", "pricing"],
+  "data": {
+    "row1": {
+      "product_info": {
+        "name": [
+          {
+            "value": "Laptop",
+            "timestamp": 1716933500000
+          }
+        ],
+        "category": [
+          {
+            "value": "Electronics",
+            "timestamp": 1716933500000
+          }
+        ]
+      },
+      "pricing": {
+        "price": [
+          {
+            "value": "999.99",
+            "timestamp": 1716933500000
+          }
+        ],
+        "currency": [
+          {
+            "value": "USD",
+            "timestamp": 1716933500000
+          }
+        ]
+      }
+    },
+    "row2": {
+      "product_info": {
+        "name": [
+          {
+            "value": "Smartphone",
+            "timestamp": 1716933510000
+          }
+        ],
+        "category": [
+          {
+            "value": "Electronics",
+            "timestamp": 1716933510000
+          }
+        ]
+      },
+      "pricing": {
+        "price": [
+          {
+            "value": "699.99",
+            "timestamp": 1716933510000
+          }
+        ],
+        "currency": [
+          {
+            "value": "USD",
+            "timestamp": 1716933510000
+          }
+        ]
+      }
+    },
+    "row3": {
+      "product_info": {
+        "name": [
+          {
+            "value": "Tablet",
+            "timestamp": 1716933520000
+          }
+        ],
+        "category": [
+          {
+            "value": "Electronics",
+            "timestamp": 1716933520000
+          }
+        ]
+      },
+      "pricing": {
+        "price": [
+          {
+            "value": "399.99",
+            "timestamp": 1716933520000
+          }
+        ],
+        "currency": [
+          {
+            "value": "USD",
+            "timestamp": 1716933520000
+          }
+        ]
+      }
+    },
+    "row4": {
+      "product_info": {
+        "name": [
+          {
+            "value": "Headphones",
+            "timestamp": 1716933530000
+          }
+        ],
+        "category": [
+          {
+            "value": "Accessories",
+            "timestamp": 1716933530000
+          }
+        ]
+      },
+      "pricing": {
+        "price": [
+          {
+            "value": "199.99",
+            "timestamp": 1716933530000
+          }
+        ],
+        "currency": [
+          {
+            "value": "USD",
+            "timestamp": 1716933530000
+          }
+        ]
+      }
+    },
+    "row5": {
+      "product_info": {
+        "name": [
+          {
+            "value": "Smartwatch",
+            "timestamp": 1716933540000
+          }
+        ],
+        "category": [
+          {
+            "value": "Electronics",
+            "timestamp": 1716933540000
+          }
+        ]
+      },
+      "pricing": {
+        "price": [
+          {
+            "value": "299.99",
+            "timestamp": 1716933540000
+          }
+        ],
+        "currency": [
+          {
+            "value": "USD",
+            "timestamp": 1716933540000
+          }
+        ]
+      }
+    },
+    "row6": {
+      "product_info": {
+        "name": [
+          {
+            "value": "Keyboard",
+            "timestamp": 1716933550000
+          }
+        ],
+        "category": [
+          {
+            "value": "Accessories",
+            "timestamp": 1716933550000
+          }
+        ]
+      },
+      "pricing": {
+        "price": [
+          {
+            "value": "49.99",
+            "timestamp": 1716933550000
+          }
+        ],
+        "currency": [
+          {
+            "value": "USD",
+            "timestamp": 1716933550000
+          }
+        ]
+      }
+    },
+    "row7": {
+      "product_info": {
+        "name": [
+          {
+            "value": "Mouse",
+            "timestamp": 1716933560000
+          }
+        ],
+        "category": [
+          {
+            "value": "Accessories",
+            "timestamp": 1716933560000
+          }
+        ]
+      },
+      "pricing": {
+        "price": [
+          {
+            "value": "29.99",
+            "timestamp": 1716933560000
+          }
+        ],
+        "currency": [
+          {
+            "value": "USD",
+            "timestamp": 1716933560000
+          }
+        ]
+      }
+    },
+    "row8": {
+      "product_info": {
+        "name": [
+          {
+            "value": "Monitor",
+            "timestamp": 1716933570000
+          }
+        ],
+        "category": [
+          {
+            "value": "Electronics",
+            "timestamp": 1716933570000
+          }
+        ]
+      },
+      "pricing": {
+        "price": [
+          {
+            "value": "249.99",
+            "timestamp": 1716933570000
+          }
+        ],
+        "currency": [
+          {
+            "value": "USD",
+            "timestamp": 1716933570000
+          }
+        ]
+      }
+    },
+    "row9": {
+      "product_info": {
+        "name": [
+          {
+            "value": "Printer",
+            "timestamp": 1716933580000
+          }
+        ],
+        "category": [
+          {
+            "value": "Electronics",
+            "timestamp": 1716933580000
+          }
+        ]
+      },
+      "pricing": {
+        "price": [
+          {
+            "value": "199.99",
+            "timestamp": 1716933580000
+          }
+        ],
+        "currency": [
+          {
+            "value": "USD",
+            "timestamp": 1716933580000
+          }
+        ]
+      }
+    },
+    "row10": {
+      "product_info": {
+        "name": [
+          {
+            "value": "Router",
+            "timestamp": 1716933590000
+          }
+        ],
+        "category": [
+          {
+            "value": "Electronics",
+            "timestamp": 1716933590000
+          }
+        ]
+      },
+      "pricing": {
+        "price": [
+          {
+            "value": "149.99",
+            "timestamp": 1716933590000
+          }
+        ],
+        "currency": [
+          {
+            "value": "USD",
+            "timestamp": 1716933590000
+          }
+        ]
+      }
+    },
+    "row11": {
+      "product_info": {
+        "name": [
+          {
+            "value": "Camera",
+            "timestamp": 1716933600000
+          }
+        ],
+        "category": [
+          {
+            "value": "Electronics",
+            "timestamp": 1716933600000
+          }
+        ]
+      },
+      "pricing": {
+        "price": [
+          {
+            "value": "499.99",
+            "timestamp": 1716933600000
+          }
+        ],
+        "currency": [
+          {
+            "value": "USD",
+            "timestamp": 1716933600000
+          }
+        ]
+      }
+    },
+    "row12": {
+      "product_info": {
+        "name": [
+          {
+            "value": "Speakers",
+            "timestamp": 1716933610000
+          }
+        ],
+        "category": [
+          {
+            "value": "Accessories",
+            "timestamp": 1716933610000
+          }
+        ]
+      },
+      "pricing": {
+        "price": [
+          {
+            "value": "89.99",
+            "timestamp": 1716933610000
+          }
+        ],
+        "currency": [
+          {
+            "value": "USD",
+            "timestamp": 1716933610000
+          }
+        ]
+      }
+    },
+    "row13": {
+      "product_info": {
+        "name": [
+          {
+            "value": "External Hard Drive",
+            "timestamp": 1716933620000
+          }
+        ],
+        "category": [
+          {
+            "value": "Storage",
+            "timestamp": 1716933620000
+          }
+        ]
+      },
+      "pricing": {
+        "price": [
+          {
+            "value": "129.99",
+            "timestamp": 1716933620000
+          }
+        ],
+        "currency": [
+          {
+            "value": "USD",
+            "timestamp": 1716933620000
+          }
+        ]
+      }
+    },
+    "row14": {
+      "product_info": {
+        "name": [
+          {
+            "value": "Flash Drive",
+            "timestamp": 1716933630000
+          }
+        ],
+        "category": [
+          {
+            "value": "Storage",
+            "timestamp": 1716933630000
+          }
+        ]
+      },
+      "pricing": {
+        "price": [
+          {
+            "value": "19.99",
+            "timestamp": 1716933630000
+          }
+        ],
+        "currency": [
+          {
+            "value": "USD",
+            "timestamp": 1716933630000
+          }
+        ]
+      }
+    },
+    "row15": {
+      "product_info": {
+        "name": [
+          {
+            "value": "Webcam",
+            "timestamp": 1716933640000
+          }
+        ],
+        "category": [
+          {
+            "value": "Electronics",
+            "timestamp": 1716933640000
+          }
+        ]
+      },
+      "pricing": {
+        "price": [
+          {
+            "value": "59.99",
+            "timestamp": 1716933640000
+          }
+        ],
+        "currency": [
+          {
+            "value": "USD",
+            "timestamp": 1716933640000
+          }
+        ]
+      }
+    }
+  }
+}

@@ -107,9 +107,9 @@ def run_cli():
                     else:
                         print(f"Table '{table_name}' not found.")
 
-            elif cmd == "deleteall":
+            elif cmd == "delete_all":
                 if len(args) != 2:
-                    print("Usage: deleteall <table_name>")
+                    print("Usage: delete_all <table_name>")
                 else:
                     table_name = args[1]
                     if table_name in simulator.tables:
@@ -214,9 +214,9 @@ def run_cli():
                     else:
                         print(f"Table '{table_name}' not found.")
             
-            elif cmd == "dropall":
+            elif cmd == "drop_all":
                 if len(args) != 1:
-                    print("Usage: dropall")
+                    print("Usage: drop_all")
                 else:
                     simulator.drop_all_tables()
                     print("All tables have been dropped.")
@@ -233,7 +233,7 @@ def run_cli():
                         print(f"Table '{table_name}' not found.")
 
             else:
-                print("Unknown command. Available commands: create, list, put, get, delete, scan, deleteall, count, truncate, disable, is_enabled, alter, drop, dropall, describe, exit")
+                print("Unknown command. Available commands: create, list, put, get, delete, scan, delete_all, count, truncate, disable, is_enabled, alter, drop, drop_all, describe, exit")
 
         except Exception as e:
             print(f"An error ocurred on executing command: '{command}'")
