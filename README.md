@@ -1,5 +1,4 @@
-# Proyecto03_DB2
-# HBase Shell Simulator
+# Proyecto03_DB2 - HBase Shell Simulator
 
 Bienvenido al Simulador de HBase Shell, una herramienta en Python que simula las funcionalidades básicas de HBase Shell. Este proyecto permite crear, manipular y consultar tablas HBase utilizando una interfaz de línea de comandos (CLI).
 
