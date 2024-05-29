@@ -23,7 +23,7 @@ class Table:
             raise Exception("Table is disabled")
         return self.hfile.get(row_key)
 
-    def delete(self, row_key, column_family=None, column=None):
+    def delete_all(self, row_key, column_family=None, column=None):
         if not self.enabled:
             raise Exception("Table is disabled")
         if column_family and column:
@@ -41,12 +41,6 @@ class Table:
         if not self.enabled:
             raise Exception("Table is disabled")
         return self.hfile.scan()
-
-    def delete_all(self):
-        if not self.enabled:
-            raise Exception("Table is disabled")
-        self.hfile.delete_all()
-        self.hfile.save()
 
     def count(self):
         if not self.enabled:
@@ -117,5 +111,5 @@ class HBaseSimulator:
             self.tables[new_name] = self.tables.pop(name)
             self.tables[new_name].name = new_name
         else:
-            raise Exception(f"Table '{table_name}' not found")
+            raise Exception(f"Table '{name}' not found.")
 

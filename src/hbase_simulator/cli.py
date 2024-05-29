@@ -1,10 +1,7 @@
 from hbase_simulator.table import HBaseSimulator
 from hbase_simulator.utils import scan_to_dataframe
-import time;
-def clean(string):
-    string = string.replace("'", "")
-    string = string.replace(" ", "")
-    return string
+import time
+
 
 def run_cli():
     simulator = HBaseSimulator()
@@ -131,14 +128,18 @@ def run_cli():
                         print(f"Table '{table_name}' not found.")
 
             elif cmd == "delete_all":
-                if len(args) != 2:
-                    print("Usage: delete_all <table_name>")
+                if len(args) != 3:
+                    print("Usage: delete_all <table_name> <row_key>")
                 else:
-                    table_name = args[1]
+                    table_name, row_key = args[1:3]
                     if table_name in simulator.tables:
-                        table = simulator.tables[table_name]
-                        table.delete_all()
-                        print(f"All data on table '{table_name}' has been deleted.")
+                        row_data = simulator.tables[table_name].get(row_key)
+                        if row_data:
+                            table = simulator.tables[table_name]
+                            table.delete_all(row_key)
+                            print(f"All data at row key '{row_key}' has been deleted.")
+                        else:
+                            print(f"No data found at '{row_key}' in '{table_name}'.")
                     else:
                         print(f"Table '{table_name}' not found.")
 
