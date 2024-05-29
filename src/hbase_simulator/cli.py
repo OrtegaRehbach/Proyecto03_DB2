@@ -254,4 +254,5 @@ def run_cli():
 
         except Exception as e:
             print(f"An error ocurred on executing command: '{command}'")
-            print(f"Error: {e.with_traceback()}")
+            print(f"Error: {e}")
+            print(f"Traceback: {e.__traceback__}")
