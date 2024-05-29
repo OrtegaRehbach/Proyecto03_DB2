@@ -59,7 +59,7 @@ def run_cli():
                         if row_data:
                             reformatted_data = [(row_key, row_data)]
                             df = scan_to_dataframe(reformatted_data, only_latest_version=True)
-                            print(df)
+                            print(df.to_markdown())
                         else:
                             print(f"No data found at '{row_key}' in '{table_name}'.")
                     else:
@@ -119,7 +119,7 @@ def run_cli():
                         data = table.scan()
                         if data:
                             df = scan_to_dataframe(data, only_latest_version=True)
-                            print(df)
+                            print(df.to_markdown())
                         else:
                             print(f"No data found on table '{table_name}'.")
                     else:
@@ -269,4 +269,3 @@ def run_cli():
         except Exception as e:
             print(f"An error ocurred on executing command: '{command}'")
             print(f"Error: {e}")
-            print(f"Traceback: {e.__traceback__}")
