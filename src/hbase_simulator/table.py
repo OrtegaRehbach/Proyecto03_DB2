@@ -8,6 +8,7 @@ class Table:
         self.hfile = HFile(name, column_families)
         self.hfile.load()
         self.enabled = True
+        self.region_threshold = 1000
 
     def put(self, row_key, column_family, column, value):
         if not self.enabled:
@@ -109,4 +110,6 @@ class HBaseSimulator:
         if name in self.tables:
             self.tables[new_name] = self.tables.pop(name)
             self.tables[new_name].name = new_name
-            os.rename(os.path.join('data', f'{name}.hfile'), os.path.join('data', f'{new_name}.hfile'))
+        else:
+            raise Exception(f"Table '{table_name}' not found")
+
