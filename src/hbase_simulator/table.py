@@ -64,6 +64,12 @@ class Table:
     def is_enabled(self):
         return self.enabled
 
+    def get_regions(self):
+        
+        num_rows = self.count()
+        num_regions = (num_rows // self.region_threshold) + 1
+        return num_regions
+
 class HBaseSimulator:
     def __init__(self):
         self.tables = {}
