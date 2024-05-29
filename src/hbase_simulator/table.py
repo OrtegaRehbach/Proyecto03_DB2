@@ -8,7 +8,6 @@ class Table:
         self.hfile = HFile(name, column_families)
         self.hfile.load()
         self.enabled = True
-        self.region_threshold = 1000
 
     def put(self, row_key, column_family, column, value):
         if not self.enabled:
@@ -64,12 +63,6 @@ class Table:
     def is_enabled(self):
         return self.enabled
 
-    def get_regions(self):
-        
-        num_rows = self.count()
-        num_regions = (num_rows // self.region_threshold) + 1
-        return num_regions
-    
     def add_column_family(self, column_family):
         if column_family in self.column_families:
             raise Exception(f"Column family '{column_family}' already exists")

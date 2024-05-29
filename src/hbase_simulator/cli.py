@@ -1,7 +1,5 @@
 from hbase_simulator.table import HBaseSimulator
 from hbase_simulator.utils import scan_to_dataframe
-import time
-
 
 def run_cli():
     simulator = HBaseSimulator()
