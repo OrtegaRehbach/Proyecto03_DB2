@@ -167,10 +167,10 @@ def run_cli():
                         table.disable()
                         print("  - Truncating table...")
                         table.truncate()
+                        # Re-habilitar tabla
+                        table.enable()
                     else:
                         print(f"Error: Table '{table_name}' not found.")
-
-
                         
             elif cmd == "disable":
                 if len(args) != 2:
