@@ -187,6 +187,19 @@ def run_cli():
                         print(f"Table '{table_name}' disabled.")
                     else:
                         print(f"Table '{table_name}' not found.")
+            
+            elif cmd == "enable":
+                if len(args) != 2:
+                    print("Usage: enable <table_name>")
+                else:
+                    table_name = args[1]
+                    if table_name in simulator.tables:
+                        table = simulator.tables[table_name]
+                        print(f"Enabling table '{table_name}'...")
+                        table.enable()
+                        print(f"Table '{table_name}' enabled.")
+                    else:
+                        print(f"Table '{table_name}' not found.")
 
             elif cmd == "is_enabled":
                 if len(args) != 2:
@@ -253,7 +266,7 @@ def run_cli():
                         print(f"Table '{table_name}' not found.")
 
             else:
-                print("Unknown command. Available commands: create, list, put, get, delete, scan, delete_all, count, truncate, disable, is_enabled, alter, drop, drop_all, describe, exit")
+                print("Unknown command. Available commands: create, list, put, get, delete, scan, delete_all, count, truncate, disable, enable, is_enabled, alter, drop, drop_all, describe, exit")
 
         except Exception as e:
             print(f"An error ocurred on executing command: '{command}'")
