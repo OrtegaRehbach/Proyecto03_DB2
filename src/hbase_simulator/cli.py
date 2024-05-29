@@ -93,7 +93,7 @@ def run_cli():
                             if simulator.tables[table_name].hfile.data[row_key].get(column_family):  # Valid column family
                                 if simulator.tables[table_name].hfile.data[row_key][column_family].get(column):  # Valid column
                                     cells = simulator.tables[table_name].hfile.data[row_key][column_family][column]
-                                    valid_timestamp = any(str(cell.get("timestamp")) == timestamp for cell in cells)
+                                    valid_timestamp = any(str(cell.get("timestamp")) == timestamp for cell in cells)  # Valid timestamp
                                     if valid_timestamp:
                                         table = simulator.tables[table_name]
                                         table.delete_cell(row_key, column_family, column, timestamp)
