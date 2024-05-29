@@ -25,6 +25,7 @@ Bienvenido al Simulador de HBase Shell, una herramienta en Python que simula las
 │   └── students.hfile
 ├── src
 │   ├── hbase_simulator
+│   │   ├── init.py
 │   │   ├── hfile.py
 │   │   ├── table.py
 │   │   └── utils.py
