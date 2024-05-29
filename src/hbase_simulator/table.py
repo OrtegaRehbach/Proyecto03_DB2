@@ -104,6 +104,7 @@ class HBaseSimulator:
 
     def drop_all_tables(self):
         for name in list(self.tables.keys()):
+            self.tables[name].disable()
             self.drop_table(name)
 
     def alter_table(self, name, new_name):
