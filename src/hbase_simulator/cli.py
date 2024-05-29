@@ -162,7 +162,7 @@ def run_cli():
                     table_name = args[1]
                     if table_name in simulator.tables:
                         table = simulator.tables[table_name]
-                        if not table.enabled:
+                        if table.enabled:
                             # Deshabilitar la tabla antes de truncarla
                             print("Truncating 'one' table: \n  - Disabling table... ")
                             table.disable()
