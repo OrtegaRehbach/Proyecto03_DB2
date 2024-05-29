@@ -214,24 +214,24 @@ def run_cli():
                         print(f"Table '{table_name}' not found.")
 
             elif cmd == "alter":
-                if len(args) != 4:
-                    print("Usage: alter <table_name>, NAME ⇒ '<new_column_family>', VERSIONS ⇒ <new_versions>")
-                else:
-                    table_name, col_family, new_versions = args[1:4]
+                if len(args) == 4 and "METHOD=>delete" in args:
+                    table_name, name_expr, method_expr = args[1:4]
+                    column_family = name_expr.split("=>")[1].strip()
                     if table_name in simulator.tables:
-                        table = simulator.tables[table_name]
-                        start_time = time.time()
-                        print(f"hbase(main):003:0> alter '{table_name}', NAME ⇒ '{col_family}', VERSIONS ⇒ {new_versions}")
-                        print("Updating all regions with the new schema...")
-                        regions = table.get_regions()  # Obtenemos la lista de regiones de la tabla
-                        for i, region in enumerate(regions):
-                            print(f"{i}/{len(regions)} regions updated.")
-                        print("Done.")
-                        elapsed_time = time.time() - start_time
-                        print(f"0 row(s) in {elapsed_time:.4f} seconds")
+                        simulator.alter_table_delete_column_family(table_name, column_family)
+                        print(f"Column family '{column_family}' deleted from table '{table_name}'.")
                     else:
-                        print(f"Error: Table '{table_name}' not found.")
-
+                        print(f"Table '{table_name}' not found.")
+                elif len(args) == 3:
+                    table_name, name_expr = args[1:3]
+                    column_family = name_expr.split("=>")[1].strip()
+                    if table_name in simulator.tables:
+                        simulator.alter_table_add_column_family(table_name, column_family)
+                        print(f"Column family '{column_family}' added to table '{table_name}'.")
+                    else:
+                        print(f"Table '{table_name}' not found.")
+                else:
+                    print("Usage: alter <table_name> NAME=>'<column_family>' [METHOD=>delete]")
 
             elif cmd == "drop":
                 if len(args) != 2:

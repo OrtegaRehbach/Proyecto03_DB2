@@ -69,6 +69,23 @@ class Table:
         num_rows = self.count()
         num_regions = (num_rows // self.region_threshold) + 1
         return num_regions
+    
+    def add_column_family(self, column_family):
+        if column_family in self.column_families:
+            raise Exception(f"Column family '{column_family}' already exists")
+        self.column_families.append(column_family)
+        self.hfile.column_families = self.column_families
+        self.hfile.save()
+
+    def delete_column_family(self, column_family):
+        if column_family not in self.column_families:
+            raise Exception(f"Column family '{column_family}' does not exist")
+        self.column_families.remove(column_family)
+        for row_key, row_data in self.hfile.data.items():
+            if column_family in row_data:
+                del row_data[column_family]
+        self.hfile.column_families = self.column_families
+        self.hfile.save()
 
 class HBaseSimulator:
     def __init__(self):
@@ -106,10 +123,17 @@ class HBaseSimulator:
             self.tables[name].disable()
             self.drop_table(name)
 
-    def alter_table(self, name, new_name):
+    def alter_table_add_column_family(self, name, column_family):
         if name in self.tables:
-            self.tables[new_name] = self.tables.pop(name)
-            self.tables[new_name].name = new_name
+            table = self.tables[name]
+            table.add_column_family(column_family)
+        else:
+            raise Exception(f"Table '{name}' not found.")
+
+    def alter_table_delete_column_family(self, name, column_family):
+        if name in self.tables:
+            table = self.tables[name]
+            table.delete_column_family(column_family)
         else:
             raise Exception(f"Table '{name}' not found.")
 
