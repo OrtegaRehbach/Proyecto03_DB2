@@ -209,8 +209,11 @@ def run_cli():
                 else:
                     table_name = args[1]
                     if table_name in simulator.tables:
-                        simulator.drop_table(table_name)
-                        print(f"Table '{table_name}' dropped.")
+                        if not simulator.tables[table_name].enabled:
+                            simulator.drop_table(table_name)
+                            print(f"Table '{table_name}' dropped.")
+                        else:
+                            print("Table must be disabled before deletion.")
                     else:
                         print(f"Table '{table_name}' not found.")
             
