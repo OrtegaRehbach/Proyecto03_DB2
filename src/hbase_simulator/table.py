@@ -31,6 +31,11 @@ class Table:
         else:
             self.hfile.delete(row_key)
         self.hfile.save()
+        
+    def delete_cell(self, row_key, column_family, column, timestamp=None):
+        if not self.enabled:
+            raise Exception("Table is disabled")
+        self.hfile.delete_cell(row_key, column_family, column, timestamp)
 
     def scan(self):
         if not self.enabled:

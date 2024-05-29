@@ -40,6 +40,21 @@ class HFile:
         if row_key in self.data:
             del self.data[row_key]
 
+    def delete_cell(self, row_key, column_family, column, timestamp=None):
+        if  row_key in self.data and \
+            column_family in self.data[row_key] and \
+            column in self.data[row_key][column_family] and \
+            self.data[row_key][column_family][column]:
+                curr_timestamp = self._current_timestamp()
+                if timestamp:  # If there's a timestamp, delete only the asociated value
+                    for i, cell in enumerate(self.data[row_key][column_family][column]):
+                        if str(cell.get("timestamp")) == timestamp:
+                            self.data[row_key][column_family][column][i] = {'value': None, 'timestamp': curr_timestamp}  # Insert a None value to account for deletion
+                else:  # If no timestamp, delete latest value
+                    self.data[row_key][column_family][column][-1] = {'value': None, 'timestamp': curr_timestamp} # Delete latest value
+                self.save()
+            
+    
     def delete_column(self, row_key, column_family, column):
         if row_key in self.data and column_family in self.data[row_key] and column in self.data[row_key][column_family]:
             del self.data[row_key][column_family][column]

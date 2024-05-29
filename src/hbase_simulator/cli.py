@@ -71,25 +71,48 @@ def run_cli():
                         print(f"Table '{table_name}' not found.")
 
             elif cmd == "delete":
-                if len(args) == 3:
-                    table_name, row_key = args[1:3]
-                    if table_name in simulator.tables:
-                        table = simulator.tables[table_name]
-                        table.delete(row_key)
-                        print(f"Row '{row_key}' deleted from '{table_name}'.")
+                if len(args) == 5:
+                    table_name, row_key, column_family, column = args[1:5]
+                    if table_name in simulator.tables:  # Valid table
+                        if simulator.tables[table_name].hfile.data.get(row_key):  # Valid row key
+                            if simulator.tables[table_name].hfile.data[row_key].get(column_family):  # Valid column family
+                                if simulator.tables[table_name].hfile.data[row_key][column_family].get(column):  # Valid column
+                                    table = simulator.tables[table_name]
+                                    table.delete_cell(row_key, column_family, column)
+                                    print(f"Deleted cell at '{table_name}, {row_key}, {column_family}:{column}'.")
+                                else:
+                                    print(f"Column '{column}' not found.")
+                            else:
+                                print(f"Column family '{column_family}' not found.")
+                        else:
+                            print(f"Row key '{row_key}' not found.")
                     else:
                         print(f"Table '{table_name}' not found.")
-                elif len(args) == 4:
-                    table_name, row_key, cf_col = args[1:4]
-                    column_family, column = cf_col.split(":")
-                    if table_name in simulator.tables:
-                        table = simulator.tables[table_name]
-                        table.delete(row_key, column_family, column)
-                        print(f"Column '{column_family}:{column}' deleted from row '{row_key}' in '{table_name}'.")
+                                                            
+                elif len(args) == 6:
+                    table_name, row_key, column_family, column, timestamp = args[1:6]
+                    if table_name in simulator.tables:  # Valid table
+                        if simulator.tables[table_name].hfile.data.get(row_key):  # Valid row key
+                            if simulator.tables[table_name].hfile.data[row_key].get(column_family):  # Valid column family
+                                if simulator.tables[table_name].hfile.data[row_key][column_family].get(column):  # Valid column
+                                    cells = simulator.tables[table_name].hfile.data[row_key][column_family][column]
+                                    valid_timestamp = any(str(cell.get("timestamp")) == timestamp for cell in cells)
+                                    if valid_timestamp:
+                                        table = simulator.tables[table_name]
+                                        table.delete_cell(row_key, column_family, column, timestamp)
+                                        print(f"Deleted cell at '{table_name}, {row_key}, {column_family}:{column} with timestamp: {timestamp}'.")
+                                    else:
+                                        print(f"Cell with timestamp '{timestamp}' not found.")
+                                else:
+                                    print(f"Column '{column}' not found.")
+                            else:
+                                print(f"Column family '{column_family}' not found.")
+                        else:
+                            print(f"Row key '{row_key}' not found.")
                     else:
                         print(f"Table '{table_name}' not found.")
                 else:
-                    print("Usage: delete <table_name> <row_key> [<column_family:column>]")
+                    print("Usage: delete <table_name> <row_key> <column_family> <column> [<timestamp>]")
 
             elif cmd == "scan":
                 if len(args) != 2:
