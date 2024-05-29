@@ -48,8 +48,8 @@ class Table:
         return self.hfile.count()
 
     def truncate(self):
-        if not self.enabled:
-            raise Exception("Table is disabled")
+        if self.enabled:
+            raise Exception("Table must be disabled")
         self.hfile.truncate()
 
     def describe(self):

@@ -162,21 +162,11 @@ def run_cli():
                     table_name = args[1]
                     if table_name in simulator.tables:
                         table = simulator.tables[table_name]
-                        if table.is_enabled():
-                            rows_before_truncate = table.count()
-                            start_time = time.time()
-                            print(f"hbase(main):011:0> truncate '{table_name}'")
-                            # Deshabilitar la tabla antes de truncarla
-                            print("Truncating 'one' table (it may take a while): \n  - Disabling table... ")
-
-                            print("  - Truncating table...")
-                            table.truncate()
-                            rows_after_truncate = table.count()
-                            elapsed_time = time.time() - start_time
-                            rows_deleted = rows_before_truncate - rows_after_truncate
-                            print(f"{rows_deleted} row(s) in {elapsed_time:.4f} seconds")
-                        else:
-                            print(f"Error: Table '{table_name}' is already disabled.")
+                        # Deshabilitar la tabla antes de truncarla
+                        print("Truncating 'one' table: \n  - Disabling table... ")
+                        table.disable()
+                        print("  - Truncating table...")
+                        table.truncate()
                     else:
                         print(f"Error: Table '{table_name}' not found.")
 
