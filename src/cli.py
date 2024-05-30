@@ -296,7 +296,7 @@ def run_cli():
                         print(f"Table '{table_name}' not found.")
 
             else:
-                print("Unknown command. Available commands: create, list, put, get, delete, scan, delete_all, count, truncate, disable, enable, is_enabled, alter, drop, drop_all, describe, exit")
+                print("Unknown command. Available commands: create, list, put, get, delete, scan, delete_all, count, truncate, disable, disable_all, enable, enable_all, is_enabled, alter, drop, drop_all, describe, exit")
 
         except Exception as e:
             print(f"An error ocurred on executing command: '{command}'")
