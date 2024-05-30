@@ -215,6 +215,21 @@ def run_cli():
                     else:
                         print(f"Table '{table_name}' not found.")
 
+            elif cmd == "enable_all":
+                if len(args) != 1:
+                    print("Usage: enable_all")
+                else:
+                    for table_name in simulator.tables:
+                        table = simulator.tables[table_name]
+                        if not table.enabled:
+                            print(f"Enabling table '{table.name}'...")
+                            table.enable()
+                            print("Done!")
+                        else:
+                            print(f"Table '{table.name}' already enabled.")
+                    print()
+                    print("All tables have been enabled.")
+
             elif cmd == "is_enabled":
                 if len(args) != 2:
                     print("Usage: is_enabled <table_name>")
