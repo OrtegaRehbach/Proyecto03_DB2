@@ -5,10 +5,11 @@ def run_cli():
     simulator = HBaseSimulator()
 
     print("Welcome to HBase Shell simulator.")
-    print("Enter 'exit' to exit.\n")
+    print("Enter 'exit' to exit.")
 
     while True:
         try:
+            print()
             command = input("hbase> ").strip()
             if command.lower() == 'exit':
                 break
