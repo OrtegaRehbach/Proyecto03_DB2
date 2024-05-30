@@ -191,7 +191,8 @@ def run_cli():
                 if len(args) != 1:
                     print("Usage: disable_all")
                 else:
-                    for table in simulator.tables:
+                    for table_name in simulator.tables:
+                        table = simulator.tables[table_name]
                         if table.enabled:
                             print(f"Disabling table '{table.name}'...")
                             table.disable()
