@@ -3,6 +3,7 @@ from hbase_simulator.utils import scan_to_dataframe
 
 def run_cli():
     simulator = HBaseSimulator()
+    print()
 
     print("Welcome to HBase Shell simulator.")
     print("Enter 'exit' to exit.")
